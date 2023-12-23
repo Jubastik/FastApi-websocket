@@ -4,9 +4,11 @@ from fastapi.staticfiles import StaticFiles
 
 from pages.router import router as router_pages
 from chat.router import router as router_chat
+from src import db_session
 
+db_session.global_init()
 app = FastAPI(
-    title="Trading App"
+    title="Мой веб-сокет"
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

@@ -10,15 +10,35 @@
     <ul id='messages'>
     </ul>
     <script>
+
+        async function getLastMessage() {
+            const url = 'http://localhost:8000/chat/last_messages';
+            const response = fetch(url, {
+                method: 'GET',
+            })
+            return (await response).json()
+        }
+
+        function appendMessages(data) {
+            var messages = document.getElementById('messages')
+            var message = document.createElement('li')
+            var content = document.createTextNode(data)
+            message.appendChild(content)
+            messages.appendChild(message)
+        }
+
+
+        getLastMessage().then(data => {
+            data.forEach(data => {
+                appendMessages(data.message)
+            })
+        })
+
         var client_id = Date.now()
         document.querySelector("#ws-id").textContent = client_id;
         var ws = new WebSocket(`ws://localhost:8000/chat/ws/${client_id}`);
         ws.onmessage = function (event) {
-            var messages = document.getElementById('messages')
-            var message = document.createElement('li')
-            var content = document.createTextNode(event.data)
-            message.appendChild(content)
-            messages.appendChild(message)
+            appendMessages(event.data)
         };
 
         function sendMessage(event) {
