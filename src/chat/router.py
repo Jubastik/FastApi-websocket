@@ -1,8 +1,8 @@
 from fastapi import WebSocket, WebSocketDisconnect, APIRouter
 from sqlalchemy import insert
 
-from src.chat.models import Message
-from src.db_session import get_session
+from chat.models import Message
+from db_session import get_session
 
 router = APIRouter(
     prefix="/chat",

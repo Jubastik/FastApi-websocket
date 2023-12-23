@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from src.db_session import Base
+from db_session import Base
 
 
 class Message(Base):
